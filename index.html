@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You Never Own It — The Psychology of Patek Philippe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black: #0a0908;
+  --charcoal: #14120f;
+  --brown-dark: #1f1812;
+  --brown-mid: #5c4a36;
+  --gold: #c9a567;
+  --gold-bright: #e6c989;
+  --gold-dim: #8a7150;
+  --cream: #f3ede2;
+  --cream-dim: rgba(243,237,226,0.62);
+  --line: rgba(201,165,103,0.18);
+  --font-display: 'Cormorant Garamond', serif;
+  --font-sans: 'Jost', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--cream);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--gold); color: var(--black); }
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scrollLine {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 100px 24px 60px;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,165,103,0.1), transparent 60%),
+    linear-gradient(180deg, var(--black), var(--charcoal));
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(201,165,103,0.35) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.hero-content {
+  max-width: 900px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-logo {
+  width: 220px;
+  margin: 0 auto 32px;
+  opacity: 0;
+  animation: fadeIn 1.4s ease 0.2s forwards;
+}
+
+.hero-logo svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hero-logo svg path {
+  fill: var(--gold-bright);
+  filter: drop-shadow(0 0 24px rgba(201,165,103,0.3));
+}
+
+.hero-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.6s forwards;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 6.5vw, 84px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--cream);
+  margin-bottom: 28px;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--gold-bright);
+}
+
+.hero-subtitle {
+  font-family: var(--font-sans);
+  font-size: clamp(15px, 1.6vw, 19px);
+  font-weight: 300;
+  color: var(--cream-dim);
+  max-width: 620px;
+  margin: 0 auto 48px;
+  line-height: 1.7;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.9s forwards;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 56px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.2s forwards;
+}
+
+.hero-stat { text-align: center; }
+
+.hero-stat-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.5vw, 42px);
+  color: var(--gold-bright);
+  font-weight: 500;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.hero-stat-label {
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+}
+
+.hero-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--line);
+  align-self: center;
+}
+
+.scroll-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 64px;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.6s forwards;
+}
+
+.scroll-hint span {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(to bottom, var(--gold-dim), transparent);
+  animation: scrollLine 2.2s ease-in-out infinite;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── SECTION BASE ── */
+section { position: relative; padding: 140px 24px; }
+
+.section-inner { max-width: 880px; margin: 0 auto; }
+.section-inner.wide { max-width: 1100px; }
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--cream);
+  margin-bottom: 32px;
+}
+
+.section-title em { font-style: italic; color: var(--gold-bright); }
+
+.body-text {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--cream-dim);
+  line-height: 1.85;
+  margin-bottom: 22px;
+  max-width: 700px;
+}
+
+.body-text strong { color: var(--cream); font-weight: 500; }
+.body-text em { color: var(--gold-bright); font-style: italic; }
+
+/* ── ORIGIN SECTION ── */
+.origin { background: var(--black); }
+
+.origin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+  margin-top: 50px;
+}
+
+@media (max-width: 760px) {
+  .origin-grid { grid-template-columns: 1fr; gap: 36px; }
+}
+
+.fact-box {
+  background: var(--brown-dark);
+  border: 1px solid var(--line);
+  padding: 32px;
+  margin-top: 16px;
+}
+
+.fact-box-label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.fact-box p { font-size: 16px; color: var(--cream-dim); line-height: 1.7; }
+
+/* ── LOGO SECTION ── */
+.logo-section { background: linear-gradient(180deg, var(--charcoal), var(--black)); }
+
+.logo-display {
+  display: flex;
+  justify-content: center;
+  margin: 60px 0;
+}
+
+.logo-display svg { width: 260px; height: auto; }
+.logo-display svg path {
+  fill: var(--gold);
+  filter: drop-shadow(0 0 50px rgba(201,165,103,0.3));
+}
+
+.cross-meaning {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin: 50px 0;
+}
+
+@media (max-width: 760px) {
+  .cross-meaning { grid-template-columns: repeat(2, 1fr); }
+}
+
+.cross-item {
+  text-align: center;
+  padding: 24px 12px;
+  border-top: 1px solid var(--line);
+}
+
+.cross-item-num {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.cross-item-label { font-size: 12px; letter-spacing: 1px; color: var(--cream-dim); }
+
+/* ── TIMELINE ── */
+.timeline-section { background: var(--black); }
+
+.timeline { margin-top: 60px; position: relative; }
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: var(--line);
+}
+
+.timeline-item { position: relative; padding-left: 44px; padding-bottom: 56px; }
+.timeline-item:last-child { padding-bottom: 0; }
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 6px;
+  width: 11px;
+  height: 11px;
+  background: var(--black);
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+}
+
+.timeline-year {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--gold);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.timeline-item h4 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--cream);
+  margin-bottom: 10px;
+}
+
+.timeline-item p {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--cream-dim);
+  line-height: 1.75;
+  max-width: 620px;
+}
+
+/* ── CAMPAIGN SECTION ── */
+.campaign-section { background: var(--brown-dark); text-align: center; }
+
+.campaign-quote {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 4vw, 50px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--gold-bright);
+  line-height: 1.35;
+  max-width: 820px;
+  margin: 40px auto;
+}
+
+.campaign-meta {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  margin-bottom: 16px;
+}
+
+.campaign-stats {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  margin-top: 60px;
+}
+
+.campaign-stat-num { font-family: var(--font-display); font-size: 40px; color: var(--gold); margin-bottom: 8px; }
+.campaign-stat-label { font-size: 11px; letter-spacing: 1.5px; color: var(--cream-dim); max-width: 170px; }
+
+/* ── TACTICS ── */
+.tactics-section { background: var(--black); }
+
+.tactic {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 32px;
+  padding: 44px 0;
+  border-top: 1px solid var(--line);
+  align-items: start;
+}
+
+.tactic:last-child { border-bottom: 1px solid var(--line); }
+
+@media (max-width: 640px) {
+  .tactic { grid-template-columns: 1fr; gap: 14px; }
+}
+
+.tactic-num {
+  font-family: var(--font-display);
+  font-size: 48px;
+  color: var(--gold-dim);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.tactic-content h3 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--cream);
+  margin-bottom: 6px;
+}
+
+.tactic-principle {
+  display: inline-block;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold-dim);
+  padding: 5px 12px;
+  margin-bottom: 16px;
+}
+
+.tactic-content p {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--cream-dim);
+  line-height: 1.8;
+  max-width: 640px;
+}
+
+/* ── SCARCITY PROOF ── */
+.scarcity-section { background: linear-gradient(180deg, var(--black), var(--brown-dark)); }
+
+.scarcity-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  margin-top: 50px;
+}
+
+@media (max-width: 760px) {
+  .scarcity-grid { grid-template-columns: 1fr; }
+}
+
+.scarcity-card { background: var(--charcoal); border: 1px solid var(--line); padding: 36px; }
+.scarcity-card-num { font-family: var(--font-display); font-size: 44px; color: var(--gold-bright); margin-bottom: 12px; }
+.scarcity-card h4 { font-size: 14px; letter-spacing: 1px; text-transform: uppercase; color: var(--cream); margin-bottom: 12px; }
+.scarcity-card p { font-size: 15px; font-weight: 300; color: var(--cream-dim); line-height: 1.7; }
+
+/* ── FINAL CTA ── */
+.cta-section { background: var(--black); text-align: center; padding: 160px 24px; }
+
+.cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5vw, 60px);
+  font-weight: 400;
+  color: var(--cream);
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+
+.cta-title em { font-style: italic; color: var(--gold-bright); }
+
+.cta-sub {
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--cream-dim);
+  max-width: 540px;
+  margin: 0 auto 50px;
+  line-height: 1.75;
+}
+
+.cta-divider { width: 60px; height: 1px; background: var(--gold-dim); margin: 50px auto; }
+
+.cta-footer {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 1126" preserveAspectRatio="xMidYMid meet"><path d="M993 81c2.156-.434 2.156-.434 5 0 2.206 2.04 3.815 4.461 5.5 6.938l1.46 2.073c7.493 10.77 12.073 19.466 9.691 32.965-1.97 9.177-4.325 18.667-8.651 27.024h2l1 2c5.499-1.894 10.099-5.135 14.941-8.28 9.129-5.833 17.95-9.148 28.934-6.97 7.79 2.14 11.816 6.547 16.125 13.25 3.47 7.086 3.898 13.992 2.188 21.625-3.435 9.761-7.949 17.52-15.516 24.668-1.734 1.77-3.09 3.6-4.485 5.644L1049 205h-2l-.562 2c-1.742 3.634-4.07 6.18-6.782 9.133-1.824 1.97-1.824 1.97-3.656 4.867h-2a171 171 0 0 0-2 4l-1.562 3.063c-2.06 4.762-2.17 9.813-2.438 14.937-4.918-.66-6.767-2.168-9.758-5.988-2.038-3.3-2.64-6.228-2.242-10.012 1.44-5.577 3.775-10.663 6.438-15.75 2.576-4.939 4.28-10.04 5.95-15.337 1.526-4.827 1.526-4.827 2.612-5.913-.467-4.044-1.156-8.02-2-12h-2v-2c-7.257-.472-12.096-.458-18 4-6.726 7.27-7.13 14.595-7.205 24.23l-.03 2.397q-.047 3.888-.081 7.775l-.063 5.418q-.082 7.105-.153 14.21-.077 7.26-.161 14.519-.162 14.225-.307 28.451 16.052-.126 32.103-.288 7.454-.076 14.907-.134 7.198-.056 14.395-.136 2.742-.029 5.484-.045c2.566-.017 5.131-.046 7.697-.078l2.276-.007c4.688-.074 8.635-.873 13.138-2.312 1.995-.363 3.994-.706 6-1v-2l4-1c2.581-7.682 2.581-7.682 2.125-15.562-3.664-4.203-7.438-5.241-12.875-5.875-6.826.29-13.457 3.081-19.062 6.875-5.502 3.694-11.92 5.555-18.188 7.562l-2.176.77c-3.24.409-5.247-1.49-7.851-3.223-2.832-2.22-4.828-4.665-6.973-7.547 2.374-2.374 4.314-2.614 7.511-3.344 9.59-2.273 15.573-6.244 22.634-13.011 2.317-2.147 3.964-3.504 6.855-4.645v-2a91 91 0 0 1 4.813-3.937c3.588-2.745 3.588-2.745 6.886-5.817C1086 219 1086 219 1088 219v-2c9.994-7.634 20.61-10.082 33-9 7.56 1.184 12.984 4.196 18 10 3.226 4.759 4.635 9.228 5 15-.779 2.62-1.576 4.852-2.687 7.313q-.84 1.965-1.676 3.93l-.843 1.924c-1.113 2.568-2.142 5.167-3.169 7.77L1134 258h-2l-.34 1.781c-.903 3.036-2.642 4.995-4.601 7.438-1.4 2.009-1.4 2.009-1.059 5.781 6.223-.541 11.263-2.624 17-5 18.43-7.526 18.43-7.526 27.703-3.96 7.355 3.76 13.783 8.927 20.297 13.96a517 517 0 0 0 7 5c-4.539 10.212-15.88 17.824-26 22-11.07 3.366-24.603-1.679-34.773-6.117-3.652-1.448-7.378-2.138-11.227-2.883.333 4.668 1.567 6.998 4.68 10.457 6.376 7.452 12.377 19.627 13.695 29.293-.982 8.509-4.94 15.648-11.375 21.25-7.632 5.703-15.735 6.118-25 5-3.285-.961-6.046-2.298-9-4l-2.926-1.387c-8.311-4.361-15.279-11.589-22.102-17.982-2.25-2.102-4.4-3.916-6.972-5.631v-2l-1.812-.875C1063 329 1063 329 1060 327v-2c-6.407-3.332-12.66-5.56-19.645-7.352C1038 317 1038 317 1036 316c.546-3.822 2.026-5.588 5-8 5.76-2.618 11.035-3.014 16.969-.984 4.084 1.678 8.057 3.476 11.972 5.52 3.243 1.552 6.422 2.588 9.871 3.589C1085.9 317.9 1085.9 317.9 1087 319c5.08.46 10.532.615 15-2 1.818-3.985 2.549-6.218 1.254-10.422-1.002-2.246-2.108-4.403-3.254-6.578l-1-3c-2.804-1.13-2.804-1.13-6-2l-2.169-1.039c-3.791-1.287-7.426-1.27-11.385-1.28l-2.574-.03c-2.797-.031-5.594-.048-8.392-.065l-5.83-.059c-5.108-.051-10.215-.09-15.323-.128-5.215-.04-10.43-.091-15.645-.141q-15.341-.144-30.682-.258.127 15.192.288 30.383.076 7.055.134 14.11.056 6.818.136 13.636.028 2.591.045 5.183c-.28 17.967-.28 17.967 7.397 33.688 4.208 3.783 8.485 4.134 14 4 3.716-1.344 4.708-2.537 6.813-5.875 1.923-5.062 1.367-8.319-.813-13.187l-1.363-3.145-.776-1.784c-1.74-4.062-3.393-8.161-5.049-12.259l-1.044-2.543c-5.238-12.976-5.238-12.976-4.264-17.598 2.315-4.066 4.405-7.092 8.496-9.609h3l.078 1.906c.728 10.99 4.919 16.426 12.39 24.348 2.888 3.132 5.444 6.431 8.012 9.824 1.615 2.119 1.615 2.119 4.145 4.547 2.418 2.418 4.26 4.902 6.164 7.727 1.168 1.684 1.168 1.684 2.672 3.07 6.316 6.476 10.539 16.054 10.914 25.078-.186 4.85-1.498 9.051-3.375 13.5l-.773 1.91c-2.895 6.041-8.165 9.308-14.168 11.942-5.94 1.86-11.984.897-18.059.148v-2l-2.875-.125c-5.305-.73-9.914-3.68-14.125-6.875v-2c-3.622-1.491-7.276-2.787-11-4-1.473 4.66-.298 8.119 1.25 12.563q.705 2.142 1.402 4.289l.7 2.13c3.544 11.026 5.757 19.16.648 29.893-3.37 6.5-7.5 12.354-12 18.125a1302 1302 0 0 0-3 4c-5.162-.765-8.217-4.061-11.457-7.945l-2.356-3.18-2.394-3.195C979 470 979 470 979 468l-2-1c-4.687-10.642-3.438-20.235 0-31h2l.375-3.625c.333-2.775.807-4.892 1.75-7.562.968-3.113.925-4.75-.125-7.813l-2-1a2768 2768 0 0 0-4.25 2.813l-2.39 1.582c-2.331 1.532-2.331 1.532-4.25 3.168-2.74 1.867-5.439 2.675-8.61 3.625l-3.406 1.042C953 429 953 429 949 429l-1 2c-5.071 1.64-9.638 1.08-14.46-1.125-8.075-4.461-12.735-9.521-15.477-18.375-2.295-9.945.714-18.895 5.734-27.625 3.456-5.359 7.043-10.164 11.758-14.473 1.69-1.541 1.69-1.541 3.445-4.402h2l.73-1.66c1.567-2.888 3.492-5.244 5.582-7.777l2.301-2.81C952 350 952 350 954.683 347.524c2.62-2.854 3.274-4.705 4.067-8.46l.672-3.028A320 320 0 0 0 961 327l7 1v2l3 1c2.683 4.191 2.694 8.183 2 13-1.335 4.16-3.141 8.051-5 12q-.911 1.98-1.82 3.96c-4.707 10.209-4.707 10.209-6.371 13.134-1.077 2.538-1.074 4.658-1.059 7.406l-.016 2.844c.273 2.73.785 4.362 2.266 6.656l2 1v2c7.105.374 11.976-.539 17.688-5.187 8.897-10.821 7.492-24.025 7.628-37.317l.063-5.073q.082-6.636.153-13.272.077-6.788.161-13.575.161-13.287.307-26.576-16.755.056-33.512.184c-5.188.04-10.375.072-15.563.087-5.012.015-10.024.05-15.036.097a783 783 0 0 1-5.72.024c-16.34-.352-16.34-.352-30.231 7.296L887 302l-1 1a85 85 0 0 0-.187 5.375l-.043 2.96c.035 2.893.035 2.893 2.23 5.665 4.426 2.806 8.93 2.606 14 2 2.614-.81 5.046-1.805 7.547-2.914 5.258-2.328 10.768-4.169 16.453-5.086v-2c6.688-2.497 12.004-4.386 18.875-1.5L948 309v2l1.938.75C952 313 952 313 952.628 315.078L953 317l-3.105.77q-2.042.52-4.082 1.043l-2.042.501c-4.056 1.05-7.267 2.414-10.771 4.686l-3 1v2a80 80 0 0 1-4.562 3.75c-3.227 2.508-6.383 5.037-9.438 7.75-3 2.5-3 2.5-5 2.5v2a105 105 0 0 1-5.187 4.375l-2.918 2.336L900 352l-2.613 2.156c-2.096 1.619-4.01 2.829-6.387 3.969l-1.937.945L887 360l-2.328 1.094c-6.756 2.291-15.127 1.983-21.672-.844a90 90 0 0 1-4-2.25l-3.312-1.875c-3.05-2.411-4.736-4.778-6.688-8.125l-1.086-1.707c-2.564-6.431-2.009-16.833.649-23.106A80 80 0 0 1 851 319l1.578-2.668c3.738-6.103 7.913-11.78 12.422-17.332-3.904-2.139-5.605-2.119-10-1a367 367 0 0 0-4.875 1.813c-4.716 1.754-9.451 3.214-14.312 4.5l-1.979.555c-6.055 1.545-11.023 1.383-16.783-1.18-5.507-3.394-10.945-6.874-16.301-10.5l-1.737-1.167c-1.376-.954-2.7-1.981-4.013-3.021v-2l-4-2c4.737-10.328 16.164-16.715 26.25-21 9.386-2.503 16.809-.093 25.75 2.938l3.465 1.13c8.363 2.76 8.363 2.76 9.535 3.932 2.415.417 2.415.417 5 0 1.673-1.965 1.673-1.965 3-4l-1.54-1.871C851.652 252.829 845.47 243.7 847 226c.73-2.712 1.575-4.565 3-7h2l.563-1.687c3.534-5.687 9.127-7.818 15.437-9.313 13.234-1.386 22.903 2.19 34 9v2l4 1v2l1.766.813c2.262 1.202 4.04 2.525 5.984 4.187l1.86 1.563C917 230 917 230 917 232l1.625.688c3.2 1.768 5.665 3.849 8.375 6.312v2l3 1v2l1.813.875C934 246 934 246 937 248c2.728.77 5.432 1.475 8.188 2.125l2.271.55q2.769.67 5.541 1.325c0 3.58-1.122 4.931-3.441 7.566-2.674 2.46-5.07 3.375-8.559 4.434-4.32-.5-8.245-2.13-12.25-3.75l-2.005-.803c-4.506-1.844-8.75-3.93-12.913-6.467-1.928-1.032-3.697-1.54-5.832-1.98v-2c-10.428-.518-10.428-.518-20 3-2.329 1.888-2.329 1.888-2.195 5.04l.07 3.585.055 3.602L886 267h2l1.75 2.313c3.94 4.705 8.342 5.917 14.25 6.687 2.835.114 5.648.184 8.484.205l2.515.03q4.09.046 8.18.081l5.692.063q7.472.082 14.944.153 7.631.077 15.263.161 14.961.162 29.922.307-.161-14.852-.34-29.704-.082-6.897-.157-13.795-.072-6.662-.156-13.324-.03-2.535-.056-5.071-.037-3.565-.086-7.13l-.017-2.094c-.148-9.971-1.462-20.087-8.825-27.538-3.786-2.472-7.864-2.993-12.277-2.813-3.389.762-5.012 2.812-7.086 5.469l-1 1c-.28 2.517-.28 2.517-.312 5.5l-.114 3.031c.572 4.657 2.425 8.266 4.426 12.469q1.05 2.44 2.07 4.895l1.028 2.455 2.078 4.984 1.02 2.436.906 2.175q.917 2.094 1.972 4.12c1.589 3.319 1.524 5.285.926 8.935-2.288 3.405-4.799 6.424-8 9h-4l-.375-3.148c-1.22-8.677-2.78-14.441-8.98-21.032C950 216 950 216 950 214l-3-1c-3-3.444-3-3.444-3-6h-2c-4-4.47-4-4.47-4-7h-2l-.812-2.437L934 195l-3-1c-7.181-8.553-13.167-18.623-14.437-29.875 1.394-9.957 5.38-18.384 13.277-24.746 6.822-4.355 14.46-3.65 22.16-2.379 8.219 2.17 14.885 6.83 21.785 11.592 3.307 2.524 3.307 2.524 7.215 3.408.934-3.622 1.032-5.846-.187-9.375-8.796-27.117-8.796-27.117-4.262-36.074C982.995 95.208 982.995 95.208 986 91h2l.813-1.687a83 83 0 0 1 2.812-5c1.46-2.008 1.46-2.008 1.375-3.313"/></svg>
+    </div>
+    <div class="hero-label">Brand Psychology Case Study</div>
+    <h1 class="hero-title">You Never<br><em>Actually Own It.</em></h1>
+    <p class="hero-subtitle">
+      How a Geneva watchmaker turned the act of selling into the act of inheriting — and built the most quietly powerful luxury brand on earth without ever showing the product first.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">1839</span>
+        <span class="hero-stat-label">Founded</span>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">72K</span>
+        <span class="hero-stat-label">Watches / Year</span>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">CHF 2.5B</span>
+        <span class="hero-stat-label">Revenue 2025</span>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>Explore</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+</section>
+
+<section class="origin">
+  <div class="section-inner">
+    <div class="eyebrow">The Origin</div>
+    <h2 class="section-title">A Polish refugee.<br><em>A French inventor.</em></h2>
+    <div class="origin-grid">
+      <div>
+        <p class="body-text">
+          In 1839, Antoine Norbert de Patek — a Polish military veteran who fled to Switzerland after the failed uprising against Russia — opened a small watchmaking firm in Geneva with Czech-Polish partner Franciszek Czapek. It was an unremarkable beginning in a city already crowded with watchmakers.
+        </p>
+        <p class="body-text">
+          Everything changed in 1844, when Patek met Jean Adrien Philippe at the Paris Industrial Exposition. Philippe had invented something no one else had: a keyless winding and hand-setting system, awarded a gold medal at the exposition. No more losing the key. No more fumbling. Patek recognized the innovation immediately and invited Philippe to Geneva.
+        </p>
+      </div>
+      <div>
+        <p class="body-text">
+          By 1851, the partnership was formalized as Patek, Philippe & Cie. The pairing was not just technical — it was philosophical. Patek brought the relationships and the reputation, traveling as far as Russia and the United States to build a global clientele. Philippe brought the obsession with mechanical precision that would define the house for the next 185 years.
+        </p>
+        <div class="fact-box">
+          <div class="fact-box-label">The Survival Marriage</div>
+          <p>When Antoine Patek died in 1877 at age 65, his only son had no interest in the business. The company's succession nearly collapsed — until Adrien Philippe's son-in-law, Joseph Bénassy-Philippe, stepped in to lead it. The watch Philippe gave his daughter Louise as a wedding gift in 1875 stayed within the family for 148 years before it was finally auctioned.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="logo-section">
+  <div class="section-inner">
+    <div class="eyebrow">The Mark</div>
+    <h2 class="section-title">A cross borrowed<br><em>from knights who fought for centuries.</em></h2>
+    <p class="body-text">
+      In 1887, the company registered a new emblem: the Calatrava Cross, named after a 12th-century Spanish military order of Catholic knights who defended a fortress for generations. No one at Patek Philippe has ever fully explained why they chose it. The official record says only that the symbol had "an unusual and attractive visual appearance" — and wasn't claimed by anyone else.
+    </p>
+    <p class="body-text">
+      That ambiguity is, itself, the point. A logo with a fully explained meaning is a marketing decision. A logo with a half-buried meaning is a relic — something inherited rather than designed.
+    </p>
+
+    <div class="logo-display">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 1126" preserveAspectRatio="xMidYMid meet"><path d="M993 81c2.156-.434 2.156-.434 5 0 2.206 2.04 3.815 4.461 5.5 6.938l1.46 2.073c7.493 10.77 12.073 19.466 9.691 32.965-1.97 9.177-4.325 18.667-8.651 27.024h2l1 2c5.499-1.894 10.099-5.135 14.941-8.28 9.129-5.833 17.95-9.148 28.934-6.97 7.79 2.14 11.816 6.547 16.125 13.25 3.47 7.086 3.898 13.992 2.188 21.625-3.435 9.761-7.949 17.52-15.516 24.668-1.734 1.77-3.09 3.6-4.485 5.644L1049 205h-2l-.562 2c-1.742 3.634-4.07 6.18-6.782 9.133-1.824 1.97-1.824 1.97-3.656 4.867h-2a171 171 0 0 0-2 4l-1.562 3.063c-2.06 4.762-2.17 9.813-2.438 14.937-4.918-.66-6.767-2.168-9.758-5.988-2.038-3.3-2.64-6.228-2.242-10.012 1.44-5.577 3.775-10.663 6.438-15.75 2.576-4.939 4.28-10.04 5.95-15.337 1.526-4.827 1.526-4.827 2.612-5.913-.467-4.044-1.156-8.02-2-12h-2v-2c-7.257-.472-12.096-.458-18 4-6.726 7.27-7.13 14.595-7.205 24.23l-.03 2.397q-.047 3.888-.081 7.775l-.063 5.418q-.082 7.105-.153 14.21-.077 7.26-.161 14.519-.162 14.225-.307 28.451 16.052-.126 32.103-.288 7.454-.076 14.907-.134 7.198-.056 14.395-.136 2.742-.029 5.484-.045c2.566-.017 5.131-.046 7.697-.078l2.276-.007c4.688-.074 8.635-.873 13.138-2.312 1.995-.363 3.994-.706 6-1v-2l4-1c2.581-7.682 2.581-7.682 2.125-15.562-3.664-4.203-7.438-5.241-12.875-5.875-6.826.29-13.457 3.081-19.062 6.875-5.502 3.694-11.92 5.555-18.188 7.562l-2.176.77c-3.24.409-5.247-1.49-7.851-3.223-2.832-2.22-4.828-4.665-6.973-7.547 2.374-2.374 4.314-2.614 7.511-3.344 9.59-2.273 15.573-6.244 22.634-13.011 2.317-2.147 3.964-3.504 6.855-4.645v-2a91 91 0 0 1 4.813-3.937c3.588-2.745 3.588-2.745 6.886-5.817C1086 219 1086 219 1088 219v-2c9.994-7.634 20.61-10.082 33-9 7.56 1.184 12.984 4.196 18 10 3.226 4.759 4.635 9.228 5 15-.779 2.62-1.576 4.852-2.687 7.313q-.84 1.965-1.676 3.93l-.843 1.924c-1.113 2.568-2.142 5.167-3.169 7.77L1134 258h-2l-.34 1.781c-.903 3.036-2.642 4.995-4.601 7.438-1.4 2.009-1.4 2.009-1.059 5.781 6.223-.541 11.263-2.624 17-5 18.43-7.526 18.43-7.526 27.703-3.96 7.355 3.76 13.783 8.927 20.297 13.96a517 517 0 0 0 7 5c-4.539 10.212-15.88 17.824-26 22-11.07 3.366-24.603-1.679-34.773-6.117-3.652-1.448-7.378-2.138-11.227-2.883.333 4.668 1.567 6.998 4.68 10.457 6.376 7.452 12.377 19.627 13.695 29.293-.982 8.509-4.94 15.648-11.375 21.25-7.632 5.703-15.735 6.118-25 5-3.285-.961-6.046-2.298-9-4l-2.926-1.387c-8.311-4.361-15.279-11.589-22.102-17.982-2.25-2.102-4.4-3.916-6.972-5.631v-2l-1.812-.875C1063 329 1063 329 1060 327v-2c-6.407-3.332-12.66-5.56-19.645-7.352C1038 317 1038 317 1036 316c.546-3.822 2.026-5.588 5-8 5.76-2.618 11.035-3.014 16.969-.984 4.084 1.678 8.057 3.476 11.972 5.52 3.243 1.552 6.422 2.588 9.871 3.589C1085.9 317.9 1085.9 317.9 1087 319c5.08.46 10.532.615 15-2 1.818-3.985 2.549-6.218 1.254-10.422-1.002-2.246-2.108-4.403-3.254-6.578l-1-3c-2.804-1.13-2.804-1.13-6-2l-2.169-1.039c-3.791-1.287-7.426-1.27-11.385-1.28l-2.574-.03c-2.797-.031-5.594-.048-8.392-.065l-5.83-.059c-5.108-.051-10.215-.09-15.323-.128-5.215-.04-10.43-.091-15.645-.141q-15.341-.144-30.682-.258.127 15.192.288 30.383.076 7.055.134 14.11.056 6.818.136 13.636.028 2.591.045 5.183c-.28 17.967-.28 17.967 7.397 33.688 4.208 3.783 8.485 4.134 14 4 3.716-1.344 4.708-2.537 6.813-5.875 1.923-5.062 1.367-8.319-.813-13.187l-1.363-3.145-.776-1.784c-1.74-4.062-3.393-8.161-5.049-12.259l-1.044-2.543c-5.238-12.976-5.238-12.976-4.264-17.598 2.315-4.066 4.405-7.092 8.496-9.609h3l.078 1.906c.728 10.99 4.919 16.426 12.39 24.348 2.888 3.132 5.444 6.431 8.012 9.824 1.615 2.119 1.615 2.119 4.145 4.547 2.418 2.418 4.26 4.902 6.164 7.727 1.168 1.684 1.168 1.684 2.672 3.07 6.316 6.476 10.539 16.054 10.914 25.078-.186 4.85-1.498 9.051-3.375 13.5l-.773 1.91c-2.895 6.041-8.165 9.308-14.168 11.942-5.94 1.86-11.984.897-18.059.148v-2l-2.875-.125c-5.305-.73-9.914-3.68-14.125-6.875v-2c-3.622-1.491-7.276-2.787-11-4-1.473 4.66-.298 8.119 1.25 12.563q.705 2.142 1.402 4.289l.7 2.13c3.544 11.026 5.757 19.16.648 29.893-3.37 6.5-7.5 12.354-12 18.125a1302 1302 0 0 0-3 4c-5.162-.765-8.217-4.061-11.457-7.945l-2.356-3.18-2.394-3.195C979 470 979 470 979 468l-2-1c-4.687-10.642-3.438-20.235 0-31h2l.375-3.625c.333-2.775.807-4.892 1.75-7.562.968-3.113.925-4.75-.125-7.813l-2-1a2768 2768 0 0 0-4.25 2.813l-2.39 1.582c-2.331 1.532-2.331 1.532-4.25 3.168-2.74 1.867-5.439 2.675-8.61 3.625l-3.406 1.042C953 429 953 429 949 429l-1 2c-5.071 1.64-9.638 1.08-14.46-1.125-8.075-4.461-12.735-9.521-15.477-18.375-2.295-9.945.714-18.895 5.734-27.625 3.456-5.359 7.043-10.164 11.758-14.473 1.69-1.541 1.69-1.541 3.445-4.402h2l.73-1.66c1.567-2.888 3.492-5.244 5.582-7.777l2.301-2.81C952 350 952 350 954.683 347.524c2.62-2.854 3.274-4.705 4.067-8.46l.672-3.028A320 320 0 0 0 961 327l7 1v2l3 1c2.683 4.191 2.694 8.183 2 13-1.335 4.16-3.141 8.051-5 12q-.911 1.98-1.82 3.96c-4.707 10.209-4.707 10.209-6.371 13.134-1.077 2.538-1.074 4.658-1.059 7.406l-.016 2.844c.273 2.73.785 4.362 2.266 6.656l2 1v2c7.105.374 11.976-.539 17.688-5.187 8.897-10.821 7.492-24.025 7.628-37.317l.063-5.073q.082-6.636.153-13.272.077-6.788.161-13.575.161-13.287.307-26.576-16.755.056-33.512.184c-5.188.04-10.375.072-15.563.087-5.012.015-10.024.05-15.036.097a783 783 0 0 1-5.72.024c-16.34-.352-16.34-.352-30.231 7.296L887 302l-1 1a85 85 0 0 0-.187 5.375l-.043 2.96c.035 2.893.035 2.893 2.23 5.665 4.426 2.806 8.93 2.606 14 2 2.614-.81 5.046-1.805 7.547-2.914 5.258-2.328 10.768-4.169 16.453-5.086v-2c6.688-2.497 12.004-4.386 18.875-1.5L948 309v2l1.938.75C952 313 952 313 952.628 315.078L953 317l-3.105.77q-2.042.52-4.082 1.043l-2.042.501c-4.056 1.05-7.267 2.414-10.771 4.686l-3 1v2a80 80 0 0 1-4.562 3.75c-3.227 2.508-6.383 5.037-9.438 7.75-3 2.5-3 2.5-5 2.5v2a105 105 0 0 1-5.187 4.375l-2.918 2.336L900 352l-2.613 2.156c-2.096 1.619-4.01 2.829-6.387 3.969l-1.937.945L887 360l-2.328 1.094c-6.756 2.291-15.127 1.983-21.672-.844a90 90 0 0 1-4-2.25l-3.312-1.875c-3.05-2.411-4.736-4.778-6.688-8.125l-1.086-1.707c-2.564-6.431-2.009-16.833.649-23.106A80 80 0 0 1 851 319l1.578-2.668c3.738-6.103 7.913-11.78 12.422-17.332-3.904-2.139-5.605-2.119-10-1a367 367 0 0 0-4.875 1.813c-4.716 1.754-9.451 3.214-14.312 4.5l-1.979.555c-6.055 1.545-11.023 1.383-16.783-1.18-5.507-3.394-10.945-6.874-16.301-10.5l-1.737-1.167c-1.376-.954-2.7-1.981-4.013-3.021v-2l-4-2c4.737-10.328 16.164-16.715 26.25-21 9.386-2.503 16.809-.093 25.75 2.938l3.465 1.13c8.363 2.76 8.363 2.76 9.535 3.932 2.415.417 2.415.417 5 0 1.673-1.965 1.673-1.965 3-4l-1.54-1.871C851.652 252.829 845.47 243.7 847 226c.73-2.712 1.575-4.565 3-7h2l.563-1.687c3.534-5.687 9.127-7.818 15.437-9.313 13.234-1.386 22.903 2.19 34 9v2l4 1v2l1.766.813c2.262 1.202 4.04 2.525 5.984 4.187l1.86 1.563C917 230 917 230 917 232l1.625.688c3.2 1.768 5.665 3.849 8.375 6.312v2l3 1v2l1.813.875C934 246 934 246 937 248c2.728.77 5.432 1.475 8.188 2.125l2.271.55q2.769.67 5.541 1.325c0 3.58-1.122 4.931-3.441 7.566-2.674 2.46-5.07 3.375-8.559 4.434-4.32-.5-8.245-2.13-12.25-3.75l-2.005-.803c-4.506-1.844-8.75-3.93-12.913-6.467-1.928-1.032-3.697-1.54-5.832-1.98v-2c-10.428-.518-10.428-.518-20 3-2.329 1.888-2.329 1.888-2.195 5.04l.07 3.585.055 3.602L886 267h2l1.75 2.313c3.94 4.705 8.342 5.917 14.25 6.687 2.835.114 5.648.184 8.484.205l2.515.03q4.09.046 8.18.081l5.692.063q7.472.082 14.944.153 7.631.077 15.263.161 14.961.162 29.922.307-.161-14.852-.34-29.704-.082-6.897-.157-13.795-.072-6.662-.156-13.324-.03-2.535-.056-5.071-.037-3.565-.086-7.13l-.017-2.094c-.148-9.971-1.462-20.087-8.825-27.538-3.786-2.472-7.864-2.993-12.277-2.813-3.389.762-5.012 2.812-7.086 5.469l-1 1c-.28 2.517-.28 2.517-.312 5.5l-.114 3.031c.572 4.657 2.425 8.266 4.426 12.469q1.05 2.44 2.07 4.895l1.028 2.455 2.078 4.984 1.02 2.436.906 2.175q.917 2.094 1.972 4.12c1.589 3.319 1.524 5.285.926 8.935-2.288 3.405-4.799 6.424-8 9h-4l-.375-3.148c-1.22-8.677-2.78-14.441-8.98-21.032C950 216 950 216 950 214l-3-1c-3-3.444-3-3.444-3-6h-2c-4-4.47-4-4.47-4-7h-2l-.812-2.437L934 195l-3-1c-7.181-8.553-13.167-18.623-14.437-29.875 1.394-9.957 5.38-18.384 13.277-24.746 6.822-4.355 14.46-3.65 22.16-2.379 8.219 2.17 14.885 6.83 21.785 11.592 3.307 2.524 3.307 2.524 7.215 3.408.934-3.622 1.032-5.846-.187-9.375-8.796-27.117-8.796-27.117-4.262-36.074C982.995 95.208 982.995 95.208 986 91h2l.813-1.687a83 83 0 0 1 2.812-5c1.46-2.008 1.46-2.008 1.375-3.313"/></svg>
+    </div>
+
+    <div class="cross-meaning">
+      <div class="cross-item">
+        <div class="cross-item-num">4</div>
+        <div class="cross-item-label">Fleur-de-lis arms, echoing French royal heraldry</div>
+      </div>
+      <div class="cross-item">
+        <div class="cross-item-num">1158</div>
+        <div class="cross-item-label">Year the Order of Calatrava was founded in Spain</div>
+      </div>
+      <div class="cross-item">
+        <div class="cross-item-num">1887</div>
+        <div class="cross-item-label">Year Patek Philippe trademarked the cross</div>
+      </div>
+      <div class="cross-item">
+        <div class="cross-item-num">139</div>
+        <div class="cross-item-label">Years the mark has stayed essentially unchanged</div>
+      </div>
+    </div>
+
+    <p class="body-text">
+      The cross is gold. The wordmark beneath it is dark, sepia brown. No bright signature color, no Hermès orange, no Tiffany blue — because Patek Philippe never needed you to recognize it from across a room. It needed you to recognize it on a wrist you already trusted.
+    </p>
+  </div>
+</section>
+
+<section class="timeline-section">
+  <div class="section-inner">
+    <div class="eyebrow">The Turning Points</div>
+    <h2 class="section-title">From near-collapse<br><em>to category-defining.</em></h2>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">1932</div>
+        <h4>Saved by the Dial Makers</h4>
+        <p>The Great Depression nearly ends the company. Charles and Jean Stern — brothers who had supplied Patek Philippe's watch dials for years — buy the firm to keep it alive. The Stern family still owns it today, four generations later. It remains the last fully independent, family-owned watch manufacture in Geneva.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1976</div>
+        <h4>The Watch Nobody Wanted</h4>
+        <p>Designer Gérald Genta sketches a stainless steel sports watch in five minutes over dinner, inspired by a ship's porthole. Patek Philippe releases it as the Nautilus — and prices it like gold. Retailers don't want it. The press ignores it. It nearly fails before slowly becoming the most coveted watch on earth.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1996</div>
+        <h4>The Ad With No Watch In It</h4>
+        <p>Patek Philippe launches "Generations" — and the first ads show no product at all. Just black-and-white photographs of fathers and sons, captioned "Begin your own tradition." A few months later, in early 1997, the line that defines the brand replaces it: the most quoted sentence in luxury marketing history, still running, essentially unchanged, three decades later.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2021</div>
+        <h4>Killing the Bestseller</h4>
+        <p>The Nautilus 5711 — now the most coveted steel watch on earth, with 8-to-10-year waiting lists — is discontinued by CEO Thierry Stern himself. His reasoning: "We cannot put a single watch on top of our pyramid." Secondary market prices spike instantly on the news.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2025</div>
+        <h4>CHF 2.5 Billion, 72,000 Watches</h4>
+        <p>Revenue grows 9% to CHF 2.5 billion — produced from just 72,000 watches a year, a fraction of what Rolex alone makes in a single month. Most of that output never sits on an open shelf waiting for a walk-in buyer. It moves through allocation and relationships the public never sees.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="campaign-section">
+  <div class="section-inner">
+    <div class="eyebrow" style="justify-content: center;">The Campaign</div>
+    <h2 class="section-title">29 years.<br><em>One sentence.</em></h2>
+    <p class="campaign-meta">Launched October 1996 · Still running today</p>
+    <p class="campaign-quote">
+      "You never actually own a Patek Philippe.<br>You merely look after it for the next generation."
+    </p>
+    <p class="body-text" style="margin: 0 auto;">
+      The London agency Leagas Delaney didn't design an advertisement. They reframed an entire purchase decision. The line doesn't ask you to buy status — it tells you that you already think generationally, that you were always the kind of person who plans fifty years ahead. The psychological term is <em>altercasting</em>: instead of persuading you to become someone, the message assumes you already are.
+    </p>
+    <div class="campaign-stats">
+      <div>
+        <div class="campaign-stat-num">0</div>
+        <div class="campaign-stat-label">Watches shown in the original 1996 ads</div>
+      </div>
+      <div>
+        <div class="campaign-stat-num">29</div>
+        <div class="campaign-stat-label">Years the same core message has run, unbroken</div>
+      </div>
+      <div>
+        <div class="campaign-stat-num" style="font-size: 22px;">"Best Ever"</div>
+        <div class="campaign-stat-label">Cited by a Kellogg marketing professor in The Atlantic's 2015 roundup on advertising's greatest campaigns</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tactics-section">
+  <div class="section-inner">
+    <div class="eyebrow">The Psychology</div>
+    <h2 class="section-title">Five mechanisms<br><em>hiding inside one philosophy.</em></h2>
+
+    <div class="tactic">
+      <div class="tactic-num">01</div>
+      <div class="tactic-content">
+        <span class="tactic-principle">Altercasting</span>
+        <h3>You Are Already the Buyer</h3>
+        <p>Most luxury ads sell aspiration — become this person. Patek's "Generations" campaign skips that step entirely. It assumes you already think in decades, already plan for heirs, already understand legacy. The watch isn't upgrading your identity. It's confirming an identity you already hold. That's a far stronger psychological hook than aspiration, because there's nothing to argue with — you're not being sold a new self, just recognized for the one you have.</p>
+      </div>
+    </div>
+
+    <div class="tactic">
+      <div class="tactic-num">02</div>
+      <div class="tactic-content">
+        <span class="tactic-principle">Engineered Scarcity</span>
+        <h3>The Waitlist Is the Marketing</h3>
+        <p>Patek produces roughly 72,000 watches a year. Rolex produces nearly that many in a few weeks. This isn't a manufacturing limitation — it's policy. Most of that production never sits on an open shelf; it's allocated through relationships and waiting lists most buyers never see. The 8-to-10-year wait for a steel Nautilus isn't a flaw in the system. It is the system, and it converts "I want this" into "I have been chosen for this."</p>
+      </div>
+    </div>
+
+    <div class="tactic">
+      <div class="tactic-num">03</div>
+      <div class="tactic-content">
+        <span class="tactic-principle">Strategic Self-Sabotage</span>
+        <h3>Killing Your Own Bestseller</h3>
+        <p>In 2021, Patek discontinued the Nautilus 5711 — its most successful, most demanded watch — at the peak of its popularity. CEO Thierry Stern called it a duty to the rest of the collection. The effect: secondary market prices doubled almost overnight, and the brand proved it would rather lose revenue than let one product define it. Few companies are disciplined enough to discontinue what's working. That discipline is the message.</p>
+      </div>
+    </div>
+
+    <div class="tactic">
+      <div class="tactic-num">04</div>
+      <div class="tactic-content">
+        <span class="tactic-principle">Ambiguous Symbolism</span>
+        <h3>A Logo That Refuses to Explain Itself</h3>
+        <p>Patek Philippe has never given a definitive reason for choosing the Calatrava Cross. The closest official answer is that the symbol looked good and wasn't trademarked elsewhere. Most brands over-explain their logos to manufacture meaning. Patek lets the ambiguity stand — and ambiguity reads as authenticity. A story that's too neatly packaged feels invented. A story with a gap in it feels like history.</p>
+      </div>
+    </div>
+
+    <div class="tactic">
+      <div class="tactic-num">05</div>
+      <div class="tactic-content">
+        <span class="tactic-principle">Inheritance Reframe</span>
+        <h3>Turning a Purchase Into a Custodianship</h3>
+        <p>Every other watch brand sells you something to own. Patek sells you something to protect on behalf of someone who doesn't exist yet. That single reframe changes the entire emotional category of the purchase — from consumption to responsibility, from spending to stewardship. It's the same psychological territory as a family business, a trust fund, or an ancestral home: things you don't buy so much as accept the duty of.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="scarcity-section">
+  <div class="section-inner">
+    <div class="eyebrow">The Proof</div>
+    <h2 class="section-title">The watch nobody wanted<br><em>became impossible to get.</em></h2>
+    <p class="body-text">
+      In 1976, the Nautilus launched to silence. It was a steel sports watch priced like gold — a direct contradiction of everything luxury watchmaking believed at the time. Retailers passed. Critics ignored it. Then, slowly, across five decades of disciplined scarcity, it became the hardest watch on earth to buy.
+    </p>
+
+    <div class="scarcity-grid">
+      <div class="scarcity-card">
+        <div class="scarcity-card-num">8–10 yrs</div>
+        <h4>Authorized Dealer Waitlist</h4>
+        <p>For a steel Nautilus at retail price. Most buyers never get the call.</p>
+      </div>
+      <div class="scarcity-card">
+        <div class="scarcity-card-num">$6.5M</div>
+        <h4>Most Expensive Steel Watch Ever Sold</h4>
+        <p>A Tiffany-dial Nautilus, auctioned after the line was deliberately discontinued.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="section-inner">
+    <h2 class="cta-title">
+      The best brands<br>
+      <em>aren't bought. They're inherited.</em>
+    </h2>
+    <p class="cta-sub">
+      Patek Philippe doesn't sell watches. It sells the right to be the one who keeps it safe until it's someone else's turn.
+    </p>
+    <div class="cta-divider"></div>
+    <p class="cta-footer">Patek Philippe · Est. 1839 · Geneva, Switzerland</p>
+    <p class="cta-footer" style="margin-top: 16px;">Made by Mostafa Yasser</p>
+    <p class="cta-footer" style="margin-top: 8px;">m49152646@gmail.com</p>
+  </div>
+</section>
+
+<script>
+(function () {
+  var selectors = [
+    '.eyebrow',
+    '.section-title',
+    '.body-text',
+    '.fact-box',
+    '.logo-display',
+    '.cross-meaning .cross-item',
+    '.timeline-item',
+    '.campaign-meta',
+    '.campaign-quote',
+    '.campaign-stats > div',
+    '.tactic',
+    '.scarcity-card',
+    '.cta-title',
+    '.cta-sub',
+    '.cta-divider',
+    '.cta-footer'
+  ];
+
+  selectors.forEach(function (sel) {
+    document.querySelectorAll(sel).forEach(function (el) {
+      el.classList.add('reveal');
+    });
+  });
+
+  // simple stagger: index of element among its reveal-marked siblings
+  document.querySelectorAll('.reveal').forEach(function (el) {
+    var siblings = Array.prototype.filter.call(el.parentElement.children, function (c) {
+      return c.classList && c.classList.contains('reveal');
+    });
+    var idx = siblings.indexOf(el);
+    el.style.transitionDelay = (idx * 0.12) + 's';
+  });
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(function (el) {
+    observer.observe(el);
+  });
+})();
+</script>
+</body>
+</html>
